@@ -76,5 +76,8 @@ const CONFIG = {
     bankAccounts: [
         { bank: "BCA", number: "1234567890", owner: "Nama Pemilik Rekening" },
         { bank: "MANDIRI", number: "0987654321", owner: "Nama Pemilik Rekening" }
-    ]
+    ],
+
+        // 9. URL GOOGLE APPS SCRIPT (DATABASE UCAPAN)
+    scriptUrl: "PASTE_URL_WEB_APP_GOOGLE_SCRIPT_DI_SINI"
 };
