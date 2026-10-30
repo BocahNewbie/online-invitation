@@ -241,9 +241,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function escapeHtml(text) {
-        return text ? text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace/>/g, "&gt;") : '';
-    }
-});
+    return text ? text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") : '';
+}
 
 function copyAccNumber(id) {
     const text = document.getElementById(id).innerText;
