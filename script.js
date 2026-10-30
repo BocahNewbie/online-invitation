@@ -148,30 +148,100 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, 1000);
 
-    // Form RSVP
+    document.addEventListener('DOMContentLoaded', () => {
+    // ... kode integrasi config, countdown, dll tetap sama ...
+
     const rsvpForm = document.getElementById('rsvp-form');
+    const commentsContainer = document.getElementById('comments-container');
+
+    // 1. FUNGSI UNTUK MENGAMBIL & MENAMPILKAN SEMUA UCAPAN DARI GOOGLE SHEETS
+    function fetchComments() {
+        if (!CONFIG.scriptUrl || CONFIG.scriptUrl.includes("PASTE_URL")) {
+            commentsContainer.innerHTML = '<p class="text-xs text-slate-500 text-center">Belum ada ucapan tersimpan.</p>';
+            return;
+        }
+
+        commentsContainer.innerHTML = '<p class="text-xs text-cyan-400 text-center">Memuat ucapan...</p>';
+
+        fetch(CONFIG.scriptUrl)
+            .then(res => res.json())
+            .then(data => {
+                commentsContainer.innerHTML = '';
+                if (data.length === 0) {
+                    commentsContainer.innerHTML = '<p class="text-xs text-slate-500 text-center">Belum ada ucapan. Jadilah yang pertama memberikan ucapan!</p>';
+                    return;
+                }
+
+                data.forEach(item => {
+                    const el = document.createElement('div');
+                    el.className = 'bg-slate-900/80 border border-slate-800 p-4 rounded-xl text-left space-y-1';
+                    el.innerHTML = `
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-cyan-300 text-sm">${escapeHtml(item.name)}</span>
+                            <span class="text-[10px] px-2 py-0.5 rounded-full ${item.status === 'Hadir' ? 'bg-cyan-950 text-cyan-400 border border-cyan-500/30' : 'bg-slate-800 text-slate-400'}">${item.status}</span>
+                        </div>
+                        <p class="text-xs text-slate-300">${escapeHtml(item.message)}</p>
+                        <span class="text-[9px] text-slate-500 block pt-1">${item.date || ''}</span>
+                    `;
+                    commentsContainer.appendChild(el);
+                });
+            })
+            .catch(err => {
+                console.error("Gagal memuat ucapan:", err);
+                commentsContainer.innerHTML = '<p class="text-xs text-red-400 text-center">Gagal memuat ucapan.</p>';
+            });
+    }
+
+    // Panggil fungsi saat halaman selesai dimuat
+    fetchComments();
+
+    // 2. FUNGSI KIRIM UCAPAN BARU KE GOOGLE SHEETS
     rsvpForm.addEventListener('submit', (e) => {
         e.preventDefault();
+
+        const submitBtn = rsvpForm.querySelector('button[type="submit"]');
         const name = document.getElementById('input-name').value;
         const status = document.getElementById('input-status').value;
         const msg = document.getElementById('input-message').value;
 
-        const el = document.createElement('div');
-        el.className = 'bg-slate-900/80 border border-slate-800 p-4 rounded-xl text-left space-y-1';
-        el.innerHTML = `
-            <div class="flex justify-between items-center">
-                <span class="font-bold text-cyan-300 text-sm">${escapeHtml(name)}</span>
-                <span class="text-[10px] px-2 py-0.5 rounded-full ${status === 'Hadir' ? 'bg-cyan-950 text-cyan-400 border border-cyan-500/30' : 'bg-slate-800 text-slate-400'}">${status}</span>
-            </div>
-            <p class="text-xs text-slate-300">${escapeHtml(msg)}</p>
-        `;
-        document.getElementById('comments-container').prepend(el);
-        document.getElementById('input-message').value = '';
-        alert('Terima kasih atas konfirmasi & ucapannya!');
+        if (!CONFIG.scriptUrl || CONFIG.scriptUrl.includes("PASTE_URL")) {
+            alert("URL Database Google Script belum dipasang di config.js!");
+            return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Mengirim...";
+
+        const payload = {
+            name: name,
+            status: status,
+            message: msg
+        };
+
+        fetch(CONFIG.scriptUrl, {
+            method: 'POST',
+            body: JSON.stringify(payload)
+        })
+        .then(res => res.json())
+        .then(res => {
+            alert('Terima kasih! Ucapan Anda telah tersimpan.');
+            document.getElementById('input-message').value = '';
+            submitBtn.disabled = false;
+            submitBtn.innerText = "Kirim Ucapan";
+            
+            // Refresh daftar ucapan agar ucapan baru langsung muncul
+            fetchComments();
+        })
+        .catch(err => {
+            console.error("Gagal mengirim ucapan:", err);
+            alert('Terjadi kesalahan saat menyimpan ucapan. Silakan coba lagi.');
+            submitBtn.disabled = false;
+            submitBtn.innerText = "Kirim Ucapan";
+        });
     });
 
     function escapeHtml(text) {
-        return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        return text ? text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace/>/g, "&gt;") : '';
     }
 });
 
