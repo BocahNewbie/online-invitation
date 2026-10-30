@@ -1,5 +1,47 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. DYNAMIC GUEST NAME FROM URL (?to=Nama+Tamu)
+    // 1. TERAPKAN FOTO BACKGROUND PER BAGIAN DARI CONFIG.JS
+    if (typeof CONFIG !== 'undefined') {
+        const bgMap = {
+            'sec-cover': CONFIG.backgrounds.cover,
+            'sec-hero': CONFIG.backgrounds.hero,
+            'sec-quote': CONFIG.backgrounds.quote,
+            'sec-mempelai': CONFIG.backgrounds.mempelai,
+            'sec-acara': CONFIG.backgrounds.acara,
+            'sec-galeri': CONFIG.backgrounds.galeri,
+            'sec-amplop': CONFIG.backgrounds.amplop,
+            'sec-rsvp': CONFIG.backgrounds.rsvp
+        };
+
+        for (const [id, url] of Object.entries(bgMap)) {
+            const el = document.getElementById(id);
+            if (el && url) el.style.backgroundImage = `url('${url}')`;
+        }
+
+        // Apply Foto & Profil Mempelai
+        document.getElementById('img-pria').src = CONFIG.pria.foto;
+        document.getElementById('nama-pria').innerText = CONFIG.pria.nama;
+        document.getElementById('ortu-pria').innerText = CONFIG.pria.orangTua;
+        document.getElementById('text-ig-pria').innerText = CONFIG.pria.instagram;
+
+        document.getElementById('img-wanita').src = CONFIG.wanita.foto;
+        document.getElementById('nama-wanita').innerText = CONFIG.wanita.nama;
+        document.getElementById('ortu-wanita').innerText = CONFIG.wanita.orangTua;
+        document.getElementById('text-ig-wanita').innerText = CONFIG.wanita.instagram;
+
+        // Render Galeri Foto
+        const galleryGrid = document.getElementById('gallery-grid');
+        if (galleryGrid && CONFIG.gallery) {
+            galleryGrid.innerHTML = '';
+            CONFIG.gallery.forEach(imgUrl => {
+                const imgWrap = document.createElement('div');
+                imgWrap.className = 'overflow-hidden rounded-2xl border border-slate-800 shadow-lg group';
+                imgWrap.innerHTML = `<img src="${imgUrl}" class="w-full h-48 sm:h-64 object-cover group-hover:scale-110 transition-transform duration-500">`;
+                galleryGrid.appendChild(imgWrap);
+            });
+        }
+    }
+
+    // 2. DYNAMIC GUEST NAME FROM URL (?to=Nama+Tamu)
     const urlParams = new URLSearchParams(window.location.search);
     const guestParam = urlParams.get('to');
     if (guestParam) {
@@ -7,9 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('input-name').value = guestParam;
     }
 
-    // 2. OPEN INVITATION & PLAY MUSIC
+    // 3. OPEN INVITATION & PLAY MUSIC
     const btnOpen = document.getElementById('btn-open');
-    const cover = document.getElementById('cover');
+    const cover = document.getElementById('sec-cover');
     const mainContent = document.getElementById('main-content');
     const audio = document.getElementById('wedding-audio');
     const audioControl = document.getElementById('audio-control');
@@ -24,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
             audioControl.classList.remove('hidden');
         }, 1000);
 
-        // Play Audio
         audio.play().then(() => {
             isPlaying = true;
             audioIcon.classList.add('spin-slow');
@@ -42,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         isPlaying = !isPlaying;
     });
 
-    // 3. COUNTDOWN TIMER
+    // 4. COUNTDOWN TIMER
     const targetDate = new Date('December 12, 2026 08:00:00').getTime();
 
     setInterval(() => {
@@ -62,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, 1000);
 
-    // 4. RSVP FORM SUBMISSION
+    // 5. RSVP FORM SUBMISSION
     const rsvpForm = document.getElementById('rsvp-form');
     const commentsContainer = document.getElementById('comments-container');
 
@@ -92,7 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// 5. COPY TO CLIPBOARD FUNCTION
 function copyToClipboard(elementId) {
     const text = document.getElementById(elementId).innerText;
     navigator.clipboard.writeText(text).then(() => {
