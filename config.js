@@ -60,7 +60,7 @@ const CONFIG = {
             name: "Resepsi",
             time: "11.00 WIB - Selesai",
             location: "Rumah Mempelai Wanita",
-            address: "Jl. Ahmad Yani No. 45, Ciamis"
+            address: "Banjar"
         }
     ],
 
