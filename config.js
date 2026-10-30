@@ -27,7 +27,7 @@ const CONFIG = {
     // 4. DATA PROFIL (Diisi jika type = "wedding")
     wedding: {
         pria: {
-            nama: "Muhammad Adzka Ramdhani, S.E., M.M.",
+            nama: "M. Adzka Ramdhani, S.E., M.M.",
             orangTua: "Putra Pertama dari Bapak Kamaludin & Ibu Dra. Ida Srinurwenda",
             foto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=500",
             instagram: "@kaka_ramdhani"
