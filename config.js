@@ -5,8 +5,8 @@ const CONFIG = {
     // 2. INFORMASI UTAMA ACARA
     event: {
         title: "The Wedding Of", // e.g., "Walimatul Khitan", "Birthday Celebration", "Syukuran & Makan Bersama"
-        dateText: "Sabtu, 12 Desember 2026",
-        targetCountdown: "December 12, 2026 08:00:00",
+        dateText: "Sabtu, 16 Januari 2027",
+        targetCountdown: "Januari 16, 2027 08:00:00",
         quote: "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya.",
         quoteSource: "Q.S. Ar-Rum: 21",
         mapsUrl: "https://maps.google.com"
@@ -27,22 +27,22 @@ const CONFIG = {
     // 4. DATA PROFIL (Diisi jika type = "wedding")
     wedding: {
         pria: {
-            nama: "Mempelai Pria, S.Kom.",
-            orangTua: "Putra Pertama dari Bapak Nama Ayah & Ibu Nama Ibu",
+            nama: "Muhammad Adzka Ramdhani, S.E., M.M.",
+            orangTua: "Putra Pertama dari Bapak Kamaludin & Ibu Dra. Ida Srinurwenda",
             foto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=500",
-            instagram: "@username_pria"
+            instagram: "@kaka_ramdhani"
         },
         wanita: {
-            nama: "Mempelai Wanita, S.E.",
-            orangTua: "Putri Kedua dari Bapak Nama Ayah & Ibu Nama Ibu",
+            nama: "Sri Ina Aristiani",
+            orangTua: "Putri Bungsu dari Bapak Nama Ayah & Ibu Nama Ibu",
             foto: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=500",
-            instagram: "@username_wanita"
+            instagram: "@iamqueenvanilla"
         }
     },
 
     // 5. DATA PROFIL TUNGGAL (Diisi jika type = "khitanan", "birthday", atau "gathering")
     singleProfile: {
-        nama: "M. Rizky Ramadhan",
+        nama: "Muhammad Adzka Ramdhani",
         subtext: "Putra dari Bapak Fajar & Ibu Rina",
         foto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=500",
         instagram: "@username_profile"
@@ -51,15 +51,15 @@ const CONFIG = {
     // 6. RANGKAIAN JADWAL ACARA
     schedules: [
         {
-            name: "Akad Nikah / Syukuran",
+            name: "Akad Nikah",
             time: "08.00 - 10.00 WIB",
-            location: "Gedung Graha Sena",
-            address: "Jl. Ahmad Yani No. 45, Ciamis"
+            location: "KUA Purwaharja",
+            address: "Banjar"
         },
         {
-            name: "Resepsi / Ramah Tamah",
+            name: "Resepsi",
             time: "11.00 WIB - Selesai",
-            location: "Gedung Graha Sena",
+            location: "Rumah Mempelai Wanita",
             address: "Jl. Ahmad Yani No. 45, Ciamis"
         }
     ],
@@ -74,10 +74,10 @@ const CONFIG = {
 
     // 8. AMPLOP DIGITAL
     bankAccounts: [
-        { bank: "BCA", number: "1234567890", owner: "Nama Pemilik Rekening" },
-        { bank: "MANDIRI", number: "0987654321", owner: "Nama Pemilik Rekening" }
+        { bank: "BCA", number: "1234567890", owner: "Muhammad Adzka Ramdhani" },
+        { bank: "BRI", number: "0987654321", owner: "Sri Ina Aristiani" }
     ],
 
         // 9. URL GOOGLE APPS SCRIPT (DATABASE UCAPAN)
-    scriptUrl: "PASTE_URL_WEB_APP_GOOGLE_SCRIPT_DI_SINI"
+    scriptUrl: "https://script.google.com/macros/s/AKfycbyXihP0ICvvo8Y5eLP571MKGXh28DzUMFcIYqOacAMHAPX_J1wWFlJeT3QRft4HLN_vtA/exec"
 };
