@@ -1,15 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // 1. INTEGRASI CONFIG & TAMPILAN UTAMA
     if (typeof CONFIG !== 'undefined') {
         // Terapan Background Foto
         const bgMap = {
-            'sec-cover': CONFIG.backgrounds.cover,
-            'sec-hero': CONFIG.backgrounds.hero,
-            'sec-quote': CONFIG.backgrounds.quote,
-            'sec-mempelai': CONFIG.backgrounds.mempelai,
-            'sec-acara': CONFIG.backgrounds.acara,
-            'sec-galeri': CONFIG.backgrounds.galeri,
-            'sec-amplop': CONFIG.backgrounds.amplop,
-            'sec-rsvp': CONFIG.backgrounds.rsvp
+            'sec-cover': CONFIG.backgrounds?.cover,
+            'sec-hero': CONFIG.backgrounds?.hero,
+            'sec-quote': CONFIG.backgrounds?.quote,
+            'sec-mempelai': CONFIG.backgrounds?.mempelai,
+            'sec-acara': CONFIG.backgrounds?.acara,
+            'sec-galeri': CONFIG.backgrounds?.galeri,
+            'sec-amplop': CONFIG.backgrounds?.amplop,
+            'sec-rsvp': CONFIG.backgrounds?.rsvp
         };
         for (const [id, url] of Object.entries(bgMap)) {
             const el = document.getElementById(id);
@@ -17,56 +18,60 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Teks Tampilan Utama
-        document.getElementById('cover-title-tag').innerText = CONFIG.event.title;
-        document.getElementById('hero-tag').innerText = CONFIG.event.title;
-        document.getElementById('hero-date').innerText = CONFIG.event.dateText;
-        document.getElementById('quote-text').innerText = `"${CONFIG.event.quote}"`;
-        document.getElementById('quote-source').innerText = `— ${CONFIG.event.quoteSource}`;
-        document.getElementById('btn-maps').href = CONFIG.event.mapsUrl;
+        if (document.getElementById('cover-title-tag')) document.getElementById('cover-title-tag').innerText = CONFIG.event.title;
+        if (document.getElementById('hero-tag')) document.getElementById('hero-tag').innerText = CONFIG.event.title;
+        if (document.getElementById('hero-date')) document.getElementById('hero-date').innerText = CONFIG.event.dateText;
+        if (document.getElementById('quote-text')) document.getElementById('quote-text').innerText = `"${CONFIG.event.quote}"`;
+        if (document.getElementById('quote-source')) document.getElementById('quote-source').innerText = `— ${CONFIG.event.quoteSource}`;
+        if (document.getElementById('btn-maps')) document.getElementById('btn-maps').href = CONFIG.event.mapsUrl;
 
         // Render Judul Cover & Profil Berdasarkan Tipe Acara
         const coverHeading = document.getElementById('cover-heading');
         const heroHeading = document.getElementById('hero-heading');
         const profileContainer = document.getElementById('profile-container');
 
-        if (CONFIG.type === 'wedding') {
+        if (CONFIG.type === 'wedding' && CONFIG.wedding) {
             const p = CONFIG.wedding.pria;
             const w = CONFIG.wedding.wanita;
-            coverHeading.innerHTML = `${p.nama.split(',')[0]} <br>& <br>${w.nama.split(',')[0]}`;
-            heroHeading.innerHTML = `${p.nama.split(',')[0]} <br>& <br>${w.nama.split(',')[0]}`;
+            if (coverHeading) coverHeading.innerHTML = `${p.nama.split(',')[0]} <br>& <br>${w.nama.split(',')[0]}`;
+            if (heroHeading) heroHeading.innerHTML = `${p.nama.split(',')[0]} <br>& <br>${w.nama.split(',')[0]}`;
 
-            profileContainer.innerHTML = `
-                <div class="text-center space-y-3 mb-8">
-                    <h2 class="font-serif text-3xl sm:text-5xl font-bold text-cyan-300">Pasangan Mempelai</h2>
-                </div>
-                <div class="grid md:grid-cols-2 gap-12 items-center">
-                    <div class="bg-slate-900/60 border border-slate-800 p-8 rounded-3xl backdrop-blur-md text-center space-y-4 border-cyan-500/30">
-                        <img src="${p.foto}" class="w-36 h-36 rounded-full mx-auto object-cover border-2 border-cyan-400">
-                        <h3 class="font-serif text-2xl font-bold text-slate-100">${p.nama}</h3>
-                        <p class="text-xs text-slate-400">${p.orangTua}</p>
-                        <a href="#" class="inline-flex items-center space-x-2 text-xs text-cyan-400"><i class="fa-brands fa-instagram"></i><span>${p.instagram}</span></a>
+            if (profileContainer) {
+                profileContainer.innerHTML = `
+                    <div class="text-center space-y-3 mb-8">
+                        <h2 class="font-serif text-3xl sm:text-5xl font-bold text-cyan-300">Pasangan Mempelai</h2>
                     </div>
-                    <div class="bg-slate-900/60 border border-slate-800 p-8 rounded-3xl backdrop-blur-md text-center space-y-4 border-purple-500/30">
-                        <img src="${w.foto}" class="w-36 h-36 rounded-full mx-auto object-cover border-2 border-purple-400">
-                        <h3 class="font-serif text-2xl font-bold text-slate-100">${w.nama}</h3>
-                        <p class="text-xs text-slate-400">${w.orangTua}</p>
-                        <a href="#" class="inline-flex items-center space-x-2 text-xs text-purple-400"><i class="fa-brands fa-instagram"></i><span>${w.instagram}</span></a>
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="bg-slate-900/60 border border-slate-800 p-8 rounded-3xl backdrop-blur-md text-center space-y-4 border-cyan-500/30">
+                            <img src="${p.foto}" class="w-36 h-36 rounded-full mx-auto object-cover border-2 border-cyan-400">
+                            <h3 class="font-serif text-2xl font-bold text-slate-100">${p.nama}</h3>
+                            <p class="text-xs text-slate-400">${p.orangTua}</p>
+                            <a href="#" class="inline-flex items-center space-x-2 text-xs text-cyan-400"><i class="fa-brands fa-instagram"></i><span>${p.instagram}</span></a>
+                        </div>
+                        <div class="bg-slate-900/60 border border-slate-800 p-8 rounded-3xl backdrop-blur-md text-center space-y-4 border-purple-500/30">
+                            <img src="${w.foto}" class="w-36 h-36 rounded-full mx-auto object-cover border-2 border-purple-400">
+                            <h3 class="font-serif text-2xl font-bold text-slate-100">${w.nama}</h3>
+                            <p class="text-xs text-slate-400">${w.orangTua}</p>
+                            <a href="#" class="inline-flex items-center space-x-2 text-xs text-purple-400"><i class="fa-brands fa-instagram"></i><span>${w.instagram}</span></a>
+                        </div>
                     </div>
-                </div>
-            `;
-        } else {
+                `;
+            }
+        } else if (CONFIG.singleProfile) {
             const s = CONFIG.singleProfile;
-            coverHeading.innerText = s.nama;
-            heroHeading.innerText = s.nama;
+            if (coverHeading) coverHeading.innerText = s.nama;
+            if (heroHeading) heroHeading.innerText = s.nama;
 
-            profileContainer.innerHTML = `
-                <div class="bg-slate-900/60 border border-slate-800 p-8 rounded-3xl backdrop-blur-md text-center space-y-4 max-w-md mx-auto border-cyan-500/30">
-                    <img src="${s.foto}" class="w-36 h-36 rounded-full mx-auto object-cover border-2 border-cyan-400 shadow-xl">
-                    <h3 class="font-serif text-2xl font-bold text-slate-100">${s.nama}</h3>
-                    <p class="text-xs text-slate-400">${s.subtext}</p>
-                    <a href="#" class="inline-flex items-center space-x-2 text-xs text-cyan-400"><i class="fa-brands fa-instagram"></i><span>${s.instagram}</span></a>
-                </div>
-            `;
+            if (profileContainer) {
+                profileContainer.innerHTML = `
+                    <div class="bg-slate-900/60 border border-slate-800 p-8 rounded-3xl backdrop-blur-md text-center space-y-4 max-w-md mx-auto border-cyan-500/30">
+                        <img src="${s.foto}" class="w-36 h-36 rounded-full mx-auto object-cover border-2 border-cyan-400 shadow-xl">
+                        <h3 class="font-serif text-2xl font-bold text-slate-100">${s.nama}</h3>
+                        <p class="text-xs text-slate-400">${s.subtext}</p>
+                        <a href="#" class="inline-flex items-center space-x-2 text-xs text-cyan-400"><i class="fa-brands fa-instagram"></i><span>${s.instagram}</span></a>
+                    </div>
+                `;
+            }
         }
 
         // Render Jadwal Acara
@@ -121,42 +126,46 @@ document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const guestParam = urlParams.get('to');
     if (guestParam) {
-        document.getElementById('guest-name').innerText = guestParam;
-        document.getElementById('input-name').value = guestParam;
+        if (document.getElementById('guest-name')) document.getElementById('guest-name').innerText = guestParam;
+        if (document.getElementById('input-name')) document.getElementById('input-name').value = guestParam;
     }
 
     // Buka Undangan
-    document.getElementById('btn-open').addEventListener('click', () => {
-        const cover = document.getElementById('sec-cover');
-        cover.classList.add('opacity-0', 'pointer-events-none');
-        setTimeout(() => {
-            cover.style.display = 'none';
-            document.getElementById('main-content').classList.remove('hidden');
-        }, 1000);
-    });
+    const btnOpen = document.getElementById('btn-open');
+    if (btnOpen) {
+        btnOpen.addEventListener('click', () => {
+            const cover = document.getElementById('sec-cover');
+            if (cover) cover.classList.add('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                if (cover) cover.style.display = 'none';
+                const mainContent = document.getElementById('main-content');
+                if (mainContent) mainContent.classList.remove('hidden');
+            }, 1000);
+        });
+    }
 
     // Hitung Mundur (Countdown)
-    const targetDate = new Date(CONFIG.event.targetCountdown).getTime();
-    setInterval(() => {
-        const now = new Date().getTime();
-        const diff = targetDate - now;
-        if (diff > 0) {
-            document.getElementById('days').innerText = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
-            document.getElementById('hours').innerText = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
-            document.getElementById('minutes').innerText = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
-            document.getElementById('seconds').innerText = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
-        }
-    }, 1000);
+    if (typeof CONFIG !== 'undefined' && CONFIG.event?.targetCountdown) {
+        const targetDate = new Date(CONFIG.event.targetCountdown).getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+            if (diff > 0) {
+                if (document.getElementById('days')) document.getElementById('days').innerText = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+                if (document.getElementById('hours')) document.getElementById('hours').innerText = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+                if (document.getElementById('minutes')) document.getElementById('minutes').innerText = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+                if (document.getElementById('seconds')) document.getElementById('seconds').innerText = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+            }
+        }, 1000);
+    }
 
-    document.addEventListener('DOMContentLoaded', () => {
-    // ... kode integrasi config, countdown, dll tetap sama ...
-
+    // 2. RSPS & UCAPAN INTEGRASI GOOGLE SHEETS
     const rsvpForm = document.getElementById('rsvp-form');
     const commentsContainer = document.getElementById('comments-container');
 
-    // 1. FUNGSI UNTUK MENGAMBIL & MENAMPILKAN SEMUA UCAPAN DARI GOOGLE SHEETS
     function fetchComments() {
-        if (!CONFIG.scriptUrl || CONFIG.scriptUrl.includes("PASTE_URL")) {
+        if (!commentsContainer) return;
+        if (typeof CONFIG === 'undefined' || !CONFIG.scriptUrl || CONFIG.scriptUrl.includes("PASTE_URL")) {
             commentsContainer.innerHTML = '<p class="text-xs text-slate-500 text-center">Belum ada ucapan tersimpan.</p>';
             return;
         }
@@ -167,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(res => res.json())
             .then(data => {
                 commentsContainer.innerHTML = '';
-                if (data.length === 0) {
+                if (!data || data.length === 0) {
                     commentsContainer.innerHTML = '<p class="text-xs text-slate-500 text-center">Belum ada ucapan. Jadilah yang pertama memberikan ucapan!</p>';
                     return;
                 }
@@ -192,61 +201,63 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    // Panggil fungsi saat halaman selesai dimuat
     fetchComments();
 
-    // 2. FUNGSI KIRIM UCAPAN BARU KE GOOGLE SHEETS
-    rsvpForm.addEventListener('submit', (e) => {
-        e.preventDefault();
+    if (rsvpForm) {
+        rsvpForm.addEventListener('submit', (e) => {
+            e.preventDefault();
 
-        const submitBtn = rsvpForm.querySelector('button[type="submit"]');
-        const name = document.getElementById('input-name').value;
-        const status = document.getElementById('input-status').value;
-        const msg = document.getElementById('input-message').value;
+            const submitBtn = rsvpForm.querySelector('button[type="submit"]');
+            const name = document.getElementById('input-name').value;
+            const status = document.getElementById('input-status').value;
+            const msg = document.getElementById('input-message').value;
 
-        if (!CONFIG.scriptUrl || CONFIG.scriptUrl.includes("PASTE_URL")) {
-            alert("URL Database Google Script belum dipasang di config.js!");
-            return;
-        }
+            if (typeof CONFIG === 'undefined' || !CONFIG.scriptUrl || CONFIG.scriptUrl.includes("PASTE_URL")) {
+                alert("URL Database Google Script belum dipasang di config.js!");
+                return;
+            }
 
-        submitBtn.disabled = true;
-        submitBtn.innerText = "Mengirim...";
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Mengirim...";
 
-        const payload = {
-            name: name,
-            status: status,
-            message: msg
-        };
+            const payload = {
+                name: name,
+                status: status,
+                message: msg
+            };
 
-        fetch(CONFIG.scriptUrl, {
-            method: 'POST',
-            body: JSON.stringify(payload)
-        })
-        .then(res => res.json())
-        .then(res => {
-            alert('Terima kasih! Ucapan Anda telah tersimpan.');
-            document.getElementById('input-message').value = '';
-            submitBtn.disabled = false;
-            submitBtn.innerText = "Kirim Ucapan";
-            
-            // Refresh daftar ucapan agar ucapan baru langsung muncul
-            fetchComments();
-        })
-        .catch(err => {
-            console.error("Gagal mengirim ucapan:", err);
-            alert('Terjadi kesalahan saat menyimpan ucapan. Silakan coba lagi.');
-            submitBtn.disabled = false;
-            submitBtn.innerText = "Kirim Ucapan";
+            fetch(CONFIG.scriptUrl, {
+                method: 'POST',
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(res => {
+                alert('Terima kasih! Ucapan Anda telah tersimpan.');
+                document.getElementById('input-message').value = '';
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Kirim Ucapan";
+                fetchComments();
+            })
+            .catch(err => {
+                console.error("Gagal mengirim ucapan:", err);
+                alert('Terjadi kesalahan saat menyimpan ucapan. Silakan coba lagi.');
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Kirim Ucapan";
+            });
         });
-    });
+    }
+});
 
-    function escapeHtml(text) {
+// FUNGSI UTILITAS (Di Luar Event Listener)
+function escapeHtml(text) {
     return text ? text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") : '';
 }
 
 function copyAccNumber(id) {
-    const text = document.getElementById(id).innerText;
-    navigator.clipboard.writeText(text).then(() => {
-        alert('Nomor rekening berhasil disalin!');
-    });
+    const el = document.getElementById(id);
+    if (el) {
+        navigator.clipboard.writeText(el.innerText).then(() => {
+            alert('Nomor rekening berhasil disalin!');
+        });
+    }
 }
