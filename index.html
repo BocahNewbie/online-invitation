@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan Digital</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Sacramento&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans selection:bg-cyan-500 selection:text-slate-950 overflow-x-hidden">
+
+    <!-- COVER OVERLAY -->
+    <div id="cover" class="fixed inset-0 z-50 flex flex-col items-center justify-center text-center p-6 bg-cover bg-center transition-all duration-1000 ease-in-out" style="background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1920');">
+        <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"></div>
+        <div class="relative z-10 max-w-lg mx-auto flex flex-col items-center space-y-6">
+            <span class="text-cyan-400 font-medium tracking-[0.3em] text-xs uppercase bg-cyan-950/50 border border-cyan-500/30 px-4 py-1.5 rounded-full backdrop-blur-md">The Wedding Of</span>
+            <h1 class="font-serif text-4xl sm:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-slate-100 via-cyan-200 to-purple-300">
+                Pasangan <br>& <br>Pasangan
+            </h1>
+            <p class="text-slate-300 text-sm font-light">Kepada Yth. Bapak/Ibu/Saudara/i:</p>
+            <div id="guest-name-card" class="bg-slate-900/70 border border-slate-700/60 rounded-2xl p-4 w-full backdrop-blur-md shadow-2xl">
+                <span id="guest-name" class="text-xl sm:text-2xl font-bold text-cyan-300 capitalize">Tamu Undangan</span>
+            </div>
+            <button id="btn-open" class="group relative px-8 py-3.5 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full text-slate-950 font-bold tracking-wide shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 hover:scale-105 transition-all duration-300 flex items-center space-x-3">
+                <i class="fa-solid fa-envelope-open text-slate-950 transition-transform group-hover:rotate-12"></i>
+                <span>Buka Undangan</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- BACKGROUND MUSIC & TOGGLE -->
+    <audio id="wedding-audio" loop preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-wedding-113337.mp3" type="audio/mpeg">
+    </audio>
+    <button id="audio-control" class="fixed bottom-6 right-6 z-40 w-12 h-12 bg-slate-900/80 border border-cyan-500/40 rounded-full flex items-center justify-center text-cyan-400 shadow-lg backdrop-blur-md hover:scale-110 transition-all duration-300 hidden">
+        <i id="audio-icon" class="fa-solid fa-compact-disc text-xl"></i>
+    </button>
+
+    <!-- MAIN CONTENT -->
+    <main id="main-content" class="hidden">
+
+        <!-- HERO SECTION -->
+        <section class="relative min-h-screen flex items-center justify-center text-center p-6 bg-cover bg-center bg-fixed" style="background-image: url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1920');">
+            <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-[2px]"></div>
+            <div class="relative z-10 max-w-2xl mx-auto space-y-8 py-20">
+                <p class="text-cyan-400 tracking-[0.4em] text-xs uppercase font-semibold">Mengarungi Bahtera Rumah Tangga</p>
+                <h1 class="font-serif text-5xl sm:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-slate-100 via-cyan-100 to-purple-200">
+                    Mempelai Pria <br>& Mempelai Wanita
+                </h1>
+                <p class="text-slate-300 font-light text-base sm:text-lg">Sabtu, 12 Desember 2026</p>
+
+                <!-- COUNTDOWN TIMER -->
+                <div class="grid grid-cols-4 gap-3 max-w-md mx-auto pt-4">
+                    <div class="bg-slate-900/70 border border-cyan-500/30 p-3 rounded-xl backdrop-blur-md">
+                        <span id="days" class="block text-2xl sm:text-3xl font-bold text-cyan-400">00</span>
+                        <span class="text-[10px] uppercase tracking-wider text-slate-400">Hari</span>
+                    </div>
+                    <div class="bg-slate-900/70 border border-cyan-500/30 p-3 rounded-xl backdrop-blur-md">
+                        <span id="hours" class="block text-2xl sm:text-3xl font-bold text-cyan-400">00</span>
+                        <span class="text-[10px] uppercase tracking-wider text-slate-400">Jam</span>
+                    </div>
+                    <div class="bg-slate-900/70 border border-cyan-500/30 p-3 rounded-xl backdrop-blur-md">
+                        <span id="minutes" class="block text-2xl sm:text-3xl font-bold text-cyan-400">00</span>
+                        <span class="text-[10px] uppercase tracking-wider text-slate-400">Menit</span>
+                    </div>
+                    <div class="bg-slate-900/70 border border-cyan-500/30 p-3 rounded-xl backdrop-blur-md">
+                        <span id="seconds" class="block text-2xl sm:text-3xl font-bold text-cyan-400">00</span>
+                        <span class="text-[10px] uppercase tracking-wider text-slate-400">Detik</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUOTE SECTION -->
+        <section class="relative py-20 px-6 bg-cover bg-center bg-fixed" style="background-image: url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1920');">
+            <div class="absolute inset-0 bg-slate-950/85"></div>
+            <div class="relative z-10 max-w-3xl mx-auto text-center space-y-6">
+                <i class="fa-solid fa-quote-left text-3xl text-cyan-500/50"></i>
+                <p class="font-serif italic text-lg sm:text-xl text-slate-200 leading-relaxed">
+                    "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari meksudmu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya diantaramu rasa kasih dan sayang."
+                </p>
+                <span class="block text-sm text-cyan-400 font-semibold tracking-widest uppercase">— Q.S. Ar-Rum: 21</span>
+            </div>
+        </section>
+
+        <!-- PROFIL MEMPELAI -->
+        <section class="relative py-24 px-6 bg-cover bg-center bg-fixed" style="background-image: url('https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1920');">
+            <div class="absolute inset-0 bg-slate-950/85"></div>
+            <div class="relative z-10 max-w-5xl mx-auto space-y-16">
+                <div class="text-center space-y-3">
+                    <h2 class="font-serif text-3xl sm:text-5xl font-bold text-cyan-300">Pasangan Mempelai</h2>
+                    <p class="text-slate-400 text-sm">Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud menyelenggarakan pernikahan kami:</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <!-- Mempelai Pria -->
+                    <div class="bg-slate-900/60 border border-slate-800 p-8 rounded-3xl backdrop-blur-md text-center space-y-4 hover:border-cyan-500/40 transition-all duration-500">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=500" alt="Mempelai Pria" class="w-36 h-36 rounded-full mx-auto object-cover border-2 border-cyan-400 shadow-xl shadow-cyan-500/10">
+                        <h3 class="font-serif text-2xl font-bold text-slate-100">Nama Mempelai Pria, S.Kom.</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed">Putra Pertama dari <br><b class="text-slate-200">Bapak Nama Ayah</b> & <b class="text-slate-200">Ibu Nama Ibu</b></p>
+                        <a href="#" class="inline-flex items-center space-x-2 text-xs text-cyan-400 hover:text-cyan-300 transition-colors pt-2">
+                            <i class="fa-brands fa-instagram text-base"></i>
+                            <span>@username_pria</span>
+                        </a>
+                    </div>
+
+                    <!-- Mempelai Wanita -->
+                    <div class="bg-slate-900/60 border border-slate-800 p-8 rounded-3xl backdrop-blur-md text-center space-y-4 hover:border-purple-500/40 transition-all duration-500">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=500" alt="Mempelai Wanita" class="w-36 h-36 rounded-full mx-auto object-cover border-2 border-purple-400 shadow-xl shadow-purple-500/10">
+                        <h3 class="font-serif text-2xl font-bold text-slate-100">Nama Mempelai Wanita, S.E.</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed">Putri Kedua dari <br><b class="text-slate-200">Bapak Nama Ayah</b> & <b class="text-slate-200">Ibu Nama Ibu</b></p>
+                        <a href="#" class="inline-flex items-center space-x-2 text-xs text-purple-400 hover:text-purple-300 transition-colors pt-2">
+                            <i class="fa-brands fa-instagram text-base"></i>
+                            <span>@username_wanita</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ACARA & LOKASI -->
+        <section class="relative py-24 px-6 bg-cover bg-center bg-fixed" style="background-image: url('https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=1920');">
+            <div class="absolute inset-0 bg-slate-950/90"></div>
+            <div class="relative z-10 max-w-4xl mx-auto space-y-16">
+                <div class="text-center space-y-3">
+                    <h2 class="font-serif text-3xl sm:text-5xl font-bold text-cyan-300">Rangkaian Acara</h2>
+                    <p class="text-slate-400 text-sm">Waktu dan Lokasi Pelaksanaan</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-slate-900/70 border border-slate-800 p-8 rounded-2xl backdrop-blur-md text-center space-y-4">
+                        <div class="w-12 h-12 bg-cyan-950 border border-cyan-500/40 rounded-full flex items-center justify-center mx-auto text-cyan-400">
+                            <i class="fa-solid fa-ring text-xl"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-cyan-300">Akad Nikah</h3>
+                        <p class="text-slate-300 text-sm">Sabtu, 12 Desember 2026<br>08.00 - 10.00 WIB</p>
+                        <p class="text-xs text-slate-400">Gedung / Tempat Acara<br>Jl. Contoh Lokasi No. 123, Kota Kamu</p>
+                    </div>
+
+                    <div class="bg-slate-900/70 border border-slate-800 p-8 rounded-2xl backdrop-blur-md text-center space-y-4">
+                        <div class="w-12 h-12 bg-purple-950 border border-purple-500/40 rounded-full flex items-center justify-center mx-auto text-purple-400">
+                            <i class="fa-solid fa-glass-water text-xl"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl font-bold text-purple-300">Resepsi</h3>
+                        <p class="text-slate-300 text-sm">Sabtu, 12 Desember 2026<br>11.00 - Selesai</p>
+                        <p class="text-xs text-slate-400">Gedung / Tempat Acara<br>Jl. Contoh Lokasi No. 123, Kota Kamu</p>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <a href="https://maps.google.com" target="_blank" class="inline-flex items-center space-x-3 px-8 py-3.5 bg-cyan-500 text-slate-950 font-bold rounded-full hover:bg-cyan-400 transition-all duration-300 shadow-lg shadow-cyan-500/20">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                        <span>Petunjuk Ke Lokasi (Google Maps)</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- AMPLOP DIGITAL -->
+        <section class="relative py-24 px-6 bg-cover bg-center bg-fixed" style="background-image: url('https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=1920');">
+            <div class="absolute inset-0 bg-slate-950/90"></div>
+            <div class="relative z-10 max-w-2xl mx-auto text-center space-y-12">
+                <div class="space-y-3">
+                    <h2 class="font-serif text-3xl sm:text-5xl font-bold text-cyan-300">Amplop Digital</h2>
+                    <p class="text-slate-400 text-sm">Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Bagi Anda yang ingin memberikan tanda kasih, dapat mengirimkan melalui:</p>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="bg-slate-900/80 border border-slate-800 p-6 rounded-2xl backdrop-blur-md space-y-3">
+                        <span class="text-xs font-bold text-cyan-400 uppercase tracking-widest">Bank BCA</span>
+                        <p id="acc-bca" class="text-2xl font-mono font-bold text-slate-100">1234567890</p>
+                        <p class="text-xs text-slate-400">a.n. Mempelai Pria</p>
+                        <button onclick="copyToClipboard('acc-bca')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs rounded-lg transition-colors border border-slate-700">
+                            <i class="fa-solid fa-copy mr-1.5"></i> Salin Nomor Rekening
+                        </button>
+                    </div>
+
+                    <div class="bg-slate-900/80 border border-slate-800 p-6 rounded-2xl backdrop-blur-md space-y-3">
+                        <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">Bank Mandiri</span>
+                        <p id="acc-mandiri" class="text-2xl font-mono font-bold text-slate-100">0987654321</p>
+                        <p class="text-xs text-slate-400">a.n. Mempelai Wanita</p>
+                        <button onclick="copyToClipboard('acc-mandiri')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs rounded-lg transition-colors border border-slate-700">
+                            <i class="fa-solid fa-copy mr-1.5"></i> Salin Nomor Rekening
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP & UCAPAN -->
+        <section class="relative py-24 px-6 bg-cover bg-center bg-fixed" style="background-image: url('https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=1920');">
+            <div class="absolute inset-0 bg-slate-950/90"></div>
+            <div class="relative z-10 max-w-2xl mx-auto space-y-12">
+                <div class="text-center space-y-3">
+                    <h2 class="font-serif text-3xl sm:text-5xl font-bold text-cyan-300">RSVP & Ucapan</h2>
+                    <p class="text-slate-400 text-sm">Berikan konfirmasi kehadiran dan doa restu Anda</p>
+                </div>
+
+                <form id="rsvp-form" class="bg-slate-900/80 border border-slate-800 p-6 sm:p-8 rounded-2xl backdrop-blur-md space-y-4">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Nama Anda</label>
+                        <input type="text" id="input-name" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-100 text-sm focus:outline-none focus:border-cyan-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Konfirmasi Kehadiran</label>
+                        <select id="input-status" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-100 text-sm focus:outline-none focus:border-cyan-500">
+                            <option value="Hadir">Hadir</option>
+                            <option value="Tidak Hadir">Tidak Hadir</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Pesan / Ucapan</label>
+                        <textarea id="input-message" rows="3" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-100 text-sm focus:outline-none focus:border-cyan-500"></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-3 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-xl text-slate-950 font-bold text-sm hover:opacity-90 transition-opacity">Kirim Ucapan</button>
+                </form>
+
+                <div id="comments-container" class="space-y-3 max-h-80 overflow-y-auto pr-2">
+                    <!-- Ucapan dinamik akan muncul di sini -->
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="py-8 text-center bg-slate-950 border-t border-slate-900 text-xs text-slate-500">
+            <p>Terima Kasih Atas Doa Restu Anda</p>
+            <p class="mt-1">Dibuat dengan ❤️ untuk Pernikahan Kami</p>
+        </footer>
+
+    </main>
+
+    <!-- Custom Script -->
+    <script src="script.js"></script>
+</body>
+</html>
