@@ -25,6 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (document.getElementById('quote-source')) document.getElementById('quote-source').innerText = `— ${CONFIG.event.quoteSource}`;
         if (document.getElementById('btn-maps')) document.getElementById('btn-maps').href = CONFIG.event.mapsUrl;
 
+        // Helper untuk membuat URL Instagram langsung
+        const getIgUrl = (handle) => {
+            if (!handle) return '#';
+            const cleanHandle = handle.replace('@', '').trim();
+            return `https://instagram.com/${cleanHandle}`;
+        };
+
         // Render Judul Cover & Profil Berdasarkan Tipe Acara
         const coverHeading = document.getElementById('cover-heading');
         const heroHeading = document.getElementById('hero-heading');
@@ -46,13 +53,17 @@ document.addEventListener('DOMContentLoaded', () => {
                             <img src="${p.foto}" class="w-36 h-36 rounded-full mx-auto object-cover border-2 border-cyan-400">
                             <h3 class="font-serif text-2xl font-bold text-slate-100">${p.nama}</h3>
                             <p class="text-xs text-slate-400">${p.orangTua}</p>
-                            <a href="#" class="inline-flex items-center space-x-2 text-xs text-cyan-400"><i class="fa-brands fa-instagram"></i><span>${p.instagram}</span></a>
+                            <a href="${getIgUrl(p.instagram)}" target="_blank" class="inline-flex items-center space-x-2 text-xs text-cyan-400 hover:text-cyan-300 transition-colors">
+                                <i class="fa-brands fa-instagram"></i><span>${p.instagram}</span>
+                            </a>
                         </div>
                         <div class="bg-slate-900/60 border border-slate-800 p-8 rounded-3xl backdrop-blur-md text-center space-y-4 border-purple-500/30">
                             <img src="${w.foto}" class="w-36 h-36 rounded-full mx-auto object-cover border-2 border-purple-400">
                             <h3 class="font-serif text-2xl font-bold text-slate-100">${w.nama}</h3>
                             <p class="text-xs text-slate-400">${w.orangTua}</p>
-                            <a href="#" class="inline-flex items-center space-x-2 text-xs text-purple-400"><i class="fa-brands fa-instagram"></i><span>${w.instagram}</span></a>
+                            <a href="${getIgUrl(w.instagram)}" target="_blank" class="inline-flex items-center space-x-2 text-xs text-purple-400 hover:text-purple-300 transition-colors">
+                                <i class="fa-brands fa-instagram"></i><span>${w.instagram}</span>
+                            </a>
                         </div>
                     </div>
                 `;
@@ -68,7 +79,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         <img src="${s.foto}" class="w-36 h-36 rounded-full mx-auto object-cover border-2 border-cyan-400 shadow-xl">
                         <h3 class="font-serif text-2xl font-bold text-slate-100">${s.nama}</h3>
                         <p class="text-xs text-slate-400">${s.subtext}</p>
-                        <a href="#" class="inline-flex items-center space-x-2 text-xs text-cyan-400"><i class="fa-brands fa-instagram"></i><span>${s.instagram}</span></a>
+                        <a href="${getIgUrl(s.instagram)}" target="_blank" class="inline-flex items-center space-x-2 text-xs text-cyan-400 hover:text-cyan-300 transition-colors">
+                            <i class="fa-brands fa-instagram"></i><span>${s.instagram}</span>
+                        </a>
                     </div>
                 `;
             }
@@ -131,47 +144,45 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Buka Undangan & Autoplay Musik
-const btnOpen = document.getElementById('btn-open');
-const audio = document.getElementById('wedding-audio');
-const audioControl = document.getElementById('audio-control');
-const audioIcon = document.getElementById('audio-icon');
-let isPlaying = false;
+    const btnOpen = document.getElementById('btn-open');
+    const audio = document.getElementById('wedding-audio');
+    const audioControl = document.getElementById('audio-control');
+    const audioIcon = document.getElementById('audio-icon');
+    let isPlaying = false;
 
-if (btnOpen) {
-    btnOpen.addEventListener('click', () => {
-        const cover = document.getElementById('sec-cover');
-        if (cover) cover.classList.add('opacity-0', 'pointer-events-none');
-        setTimeout(() => {
-            if (cover) cover.style.display = 'none';
-            const mainContent = document.getElementById('main-content');
-            if (mainContent) mainContent.classList.remove('hidden');
-            if (audioControl) audioControl.classList.remove('hidden');
-        }, 1000);
+    if (btnOpen) {
+        btnOpen.addEventListener('click', () => {
+            const cover = document.getElementById('sec-cover');
+            if (cover) cover.classList.add('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                if (cover) cover.style.display = 'none';
+                const mainContent = document.getElementById('main-content');
+                if (mainContent) mainContent.classList.remove('hidden');
+                if (audioControl) audioControl.classList.remove('hidden');
+            }, 1000);
 
-        // Putar lagu otomatis
-        if (audio) {
-            audio.play().then(() => {
-                isPlaying = true;
+            if (audio) {
+                audio.play().then(() => {
+                    isPlaying = true;
+                    if (audioIcon) audioIcon.classList.add('spin-slow');
+                }).catch(err => console.log("Autoplay diblokir browser:", err));
+            }
+        });
+    }
+
+    if (audioControl) {
+        audioControl.addEventListener('click', () => {
+            if (!audio) return;
+            if (isPlaying) {
+                audio.pause();
+                if (audioIcon) audioIcon.classList.remove('spin-slow');
+            } else {
+                audio.play();
                 if (audioIcon) audioIcon.classList.add('spin-slow');
-            }).catch(err => console.log("Autoplay diblokir oleh browser:", err));
-        }
-    });
-}
-
-// Fitur Toggle Play / Pause Musik
-if (audioControl) {
-    audioControl.addEventListener('click', () => {
-        if (!audio) return;
-        if (isPlaying) {
-            audio.pause();
-            if (audioIcon) audioIcon.classList.remove('spin-slow');
-        } else {
-            audio.play();
-            if (audioIcon) audioIcon.classList.add('spin-slow');
-        }
-        isPlaying = !isPlaying;
-    });
-}
+            }
+            isPlaying = !isPlaying;
+        });
+    }
 
     // Hitung Mundur (Countdown)
     if (typeof CONFIG !== 'undefined' && CONFIG.event?.targetCountdown) {
@@ -188,7 +199,7 @@ if (audioControl) {
         }, 1000);
     }
 
-    // 2. RSPS & UCAPAN INTEGRASI GOOGLE SHEETS
+    // RSVP & UCAPAN INTEGRASI GOOGLE SHEETS
     const rsvpForm = document.getElementById('rsvp-form');
     const commentsContainer = document.getElementById('comments-container');
 
@@ -277,7 +288,7 @@ if (audioControl) {
     }
 });
 
-// FUNGSI UTILITAS (Di Luar Event Listener)
+// FUNGSI UTILITAS
 function escapeHtml(text) {
     return text ? text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") : '';
 }
