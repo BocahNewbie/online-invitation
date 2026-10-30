@@ -130,19 +130,48 @@ document.addEventListener('DOMContentLoaded', () => {
         if (document.getElementById('input-name')) document.getElementById('input-name').value = guestParam;
     }
 
-    // Buka Undangan
-    const btnOpen = document.getElementById('btn-open');
-    if (btnOpen) {
-        btnOpen.addEventListener('click', () => {
-            const cover = document.getElementById('sec-cover');
-            if (cover) cover.classList.add('opacity-0', 'pointer-events-none');
-            setTimeout(() => {
-                if (cover) cover.style.display = 'none';
-                const mainContent = document.getElementById('main-content');
-                if (mainContent) mainContent.classList.remove('hidden');
-            }, 1000);
-        });
-    }
+    // Buka Undangan & Autoplay Musik
+const btnOpen = document.getElementById('btn-open');
+const audio = document.getElementById('wedding-audio');
+const audioControl = document.getElementById('audio-control');
+const audioIcon = document.getElementById('audio-icon');
+let isPlaying = false;
+
+if (btnOpen) {
+    btnOpen.addEventListener('click', () => {
+        const cover = document.getElementById('sec-cover');
+        if (cover) cover.classList.add('opacity-0', 'pointer-events-none');
+        setTimeout(() => {
+            if (cover) cover.style.display = 'none';
+            const mainContent = document.getElementById('main-content');
+            if (mainContent) mainContent.classList.remove('hidden');
+            if (audioControl) audioControl.classList.remove('hidden');
+        }, 1000);
+
+        // Putar lagu otomatis
+        if (audio) {
+            audio.play().then(() => {
+                isPlaying = true;
+                if (audioIcon) audioIcon.classList.add('spin-slow');
+            }).catch(err => console.log("Autoplay diblokir oleh browser:", err));
+        }
+    });
+}
+
+// Fitur Toggle Play / Pause Musik
+if (audioControl) {
+    audioControl.addEventListener('click', () => {
+        if (!audio) return;
+        if (isPlaying) {
+            audio.pause();
+            if (audioIcon) audioIcon.classList.remove('spin-slow');
+        } else {
+            audio.play();
+            if (audioIcon) audioIcon.classList.add('spin-slow');
+        }
+        isPlaying = !isPlaying;
+    });
+}
 
     // Hitung Mundur (Countdown)
     if (typeof CONFIG !== 'undefined' && CONFIG.event?.targetCountdown) {
