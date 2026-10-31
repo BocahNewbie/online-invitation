@@ -1,18 +1,15 @@
 const CONFIG = {
-    // 1. TIPE ACARA: "wedding", "khitanan", "birthday", atau "gathering"
     type: "wedding", 
 
-    // 2. INFORMASI UTAMA ACARA
     event: {
         title: "The Wedding Of",
         dateText: "Sabtu, 16 Januari 2027",
-        targetCountdown: "Januari 16, 2027 08:00:00",
+        targetCountdown: "January 16, 2027 08:00:00",
         quote: "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya.",
         quoteSource: "Q.S. Ar-Rum: 21",
         mapsUrl: "https://maps.google.com"
     },
 
-    // 3. FOTO BACKGROUND PER SEKSI (Parallax Background)
     backgrounds: {
         cover: "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1920",
         hero: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1920",
@@ -24,7 +21,6 @@ const CONFIG = {
         rsvp: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=1920"
     },
 
-    // 4. DATA PROFIL
     wedding: {
         pria: {
             nama: "M. Adzka Ramdhani, S.E., M.M.",
@@ -40,25 +36,23 @@ const CONFIG = {
         }
     },
 
-    // 5. JADWAL ACARA (Dengan Foto Lokasi/Gedung/Rumah)
     schedules: [
         {
             name: "Akad Nikah",
             time: "08.00 - 10.00 WIB",
             location: "KUA Purwaharja",
             address: "Banjar",
-            image: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=800" // Foto Gedung/KUA
+            image: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=800"
         },
         {
             name: "Resepsi",
             time: "11.00 WIB - Selesai",
             location: "Rumah Mempelai Wanita",
             address: "Banjar",
-            image: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=800" // Foto Rumah/Gedung Resepsi
+            image: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=800"
         }
     ],
 
-    // 6. GALERI FOTO
     gallery: [
         "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800",
         "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800",
@@ -66,7 +60,6 @@ const CONFIG = {
         "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800"
     ],
 
-    // 7. AMPLOP DIGITAL (Dengan Ikon/Logo Bank)
     bankAccounts: [
         { 
             bank: "BCA", 
@@ -82,6 +75,5 @@ const CONFIG = {
         }
     ],
 
-    // 8. DATABASE UCAPAN
     scriptUrl: "https://script.google.com/macros/s/AKfycbyXihP0ICvvo8Y5eLP571MKGXh28DzUMFcIYqOacAMHAPX_J1wWFlJeT3QRft4HLN_vtA/exec"
 };
