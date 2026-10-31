@@ -44,11 +44,10 @@
     <!-- MAIN CONTENT -->
     <main id="main-content" class="hidden">
 
-        <!-- HERO SECTION WITH PARALLAX & BUTTERFLY ANIMATION -->
+        <!-- HERO SECTION WITH PARALLAX & DECORATIVE ANIMATION -->
         <section id="sec-hero" class="relative min-h-screen flex items-center justify-center text-center p-6 bg-cover bg-center bg-fixed overflow-hidden">
             <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-[2px]"></div>
 
-            <!-- ELEMEN DEKORATIF MELAYANG (KUPU-KUPU & FLOWER ICONS) -->
             <div class="absolute top-1/4 left-8 text-cyan-400/40 text-3xl butterfly pointer-events-none">
                 <i class="fa-solid fa-leaf"></i>
             </div>
@@ -104,7 +103,7 @@
             </div>
         </section>
 
-        <!-- RANGKAIAN ACARA (DENGAN FOTO TEMPAT/RUMAH) -->
+        <!-- RANGKAIAN ACARA (DENGAN FOTO LOKASI) -->
         <section id="sec-acara" class="relative py-24 px-6 bg-cover bg-center bg-fixed">
             <div class="absolute inset-0 bg-slate-950/90"></div>
             <div class="relative z-10 max-w-4xl mx-auto space-y-12">
@@ -116,7 +115,7 @@
                 <div class="text-center">
                     <a id="btn-maps" href="#" target="_blank" class="inline-flex items-center space-x-3 px-8 py-3.5 bg-cyan-500 text-slate-950 font-bold rounded-full hover:bg-cyan-400 transition-all shadow-lg shadow-cyan-500/20">
                         <i class="fa-solid fa-map-location-dot"></i>
-                        <span>Petunjuk Ke Lokasi</span>
+                        <span>Petunjuk Ke Lokasi (Google Maps)</span>
                     </a>
                 </div>
             </div>
@@ -133,7 +132,7 @@
             </div>
         </section>
 
-        <!-- AMPLOP DIGITAL DENGAN ANIMASI INTERAKTIF BUKA AMPLOP -->
+        <!-- AMPLOP DIGITAL DENGAN ANIMASI INTERAKTIF KELUAR DARI AMPLOP -->
         <section id="sec-amplop" class="relative py-24 px-6 bg-cover bg-center bg-fixed">
             <div class="absolute inset-0 bg-slate-950/90"></div>
             <div class="relative z-10 max-w-2xl mx-auto text-center space-y-8">
@@ -142,21 +141,20 @@
                     <p class="text-slate-400 text-sm">Tanda kasih dan doa restu Anda sangat berarti bagi kami.</p>
                 </div>
 
-                <!-- TAMPILAN KARTU AMPLOP TERTUTUP (KLIK UNTUK MEMBUKA) -->
-                <div id="envelope-wrapper" class="envelope-wrapper">
-                    <div class="bg-gradient-to-br from-slate-900 to-slate-950 border border-cyan-500/40 p-8 rounded-2xl shadow-2xl flex flex-col items-center justify-center space-y-4 hover:border-cyan-400 transition-all group">
-                        <div class="w-16 h-16 bg-cyan-950/60 border border-cyan-500/40 rounded-full flex items-center justify-center text-cyan-400 text-2xl group-hover:scale-110 transition-transform">
+                <!-- WADAH AMPLOP -->
+                <div id="envelope-wrapper" class="envelope-container">
+                    <!-- SAMPUL DEPAN AMPLOP -->
+                    <div class="envelope-box">
+                        <div class="w-16 h-16 bg-cyan-950/60 border border-cyan-500/40 rounded-full flex items-center justify-center text-cyan-400 text-2xl mx-auto transition-transform duration-500 envelope-icon">
                             <i class="fa-solid fa-envelope"></i>
                         </div>
-                        <div>
-                            <p class="text-base font-bold text-slate-100">Buka Amplop Digital</p>
-                            <p class="text-xs text-cyan-400">Lihat Rekening Bank & Tanda Kasih</p>
-                        </div>
+                        <p class="text-base font-bold text-slate-100 mt-3">Klik Untuk Membuka Amplop</p>
+                        <p class="text-xs text-cyan-400">Lihat Rekening Bank & Tanda Kasih</p>
                     </div>
-                </div>
 
-                <!-- DAFTAR REKENING BANK & IKON (BARU MUNCUL SETELAH AMPLOP DIKLIK) -->
-                <div id="bank-container" class="envelope-content space-y-6"></div>
+                    <!-- KARTU REKENING YANG KELUAR DARI DALAM AMPLOP -->
+                    <div id="bank-container" class="envelope-card-content space-y-4"></div>
+                </div>
             </div>
         </section>
 
@@ -165,7 +163,7 @@
             <div class="absolute inset-0 bg-slate-950/90"></div>
             <div class="relative z-10 max-w-2xl mx-auto space-y-12">
                 <div class="text-center space-y-3">
-                    <h2 class="font-serif text-3xl sm:text-5xl font-bold text-cyan-300">Ucapan Anda</h2>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-bold text-cyan-300">RSVP & Ucapan</h2>
                     <p class="text-slate-400 text-sm">Konfirmasi kehadiran dan sampaikan pesan Anda</p>
                 </div>
 
@@ -195,8 +193,6 @@
         <!-- FOOTER -->
         <footer class="py-8 text-center bg-slate-950 border-t border-slate-900 text-xs text-slate-500 flex flex-col items-center justify-center space-y-2">
             <p>Terima Kasih Atas Kehadiran & Doa Restu Anda</p>
-            
-            <!-- CREDIT BOCAH NEWBIE NEON -->
             <div class="pt-2">
                 <span class="neon-credit">Created by Bocah Newbie</span>
             </div>
