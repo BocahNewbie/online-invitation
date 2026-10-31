@@ -1,10 +1,10 @@
 const CONFIG = {
-    // 1. TIPE ACARA: Pilih salah satu -> "wedding", "khitanan", "birthday", atau "gathering"
+    // 1. TIPE ACARA: "wedding", "khitanan", "birthday", atau "gathering"
     type: "wedding", 
 
     // 2. INFORMASI UTAMA ACARA
     event: {
-        title: "The Wedding Of", // e.g., "Walimatul Khitan", "Birthday Celebration", "Syukuran & Makan Bersama"
+        title: "The Wedding Of",
         dateText: "Sabtu, 16 Januari 2027",
         targetCountdown: "Januari 16, 2027 08:00:00",
         quote: "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya.",
@@ -12,7 +12,7 @@ const CONFIG = {
         mapsUrl: "https://maps.google.com"
     },
 
-    // 3. FOTO BACKGROUND PER SEKSI
+    // 3. FOTO BACKGROUND PER SEKSI (Parallax Background)
     backgrounds: {
         cover: "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1920",
         hero: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1920",
@@ -24,7 +24,7 @@ const CONFIG = {
         rsvp: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=1920"
     },
 
-    // 4. DATA PROFIL (Diisi jika type = "wedding")
+    // 4. DATA PROFIL
     wedding: {
         pria: {
             nama: "M. Adzka Ramdhani, S.E., M.M.",
@@ -40,31 +40,25 @@ const CONFIG = {
         }
     },
 
-    // 5. DATA PROFIL TUNGGAL (Diisi jika type = "khitanan", "birthday", atau "gathering")
-    singleProfile: {
-        nama: "Muhammad Adzka Ramdhani",
-        subtext: "Putra dari Bapak Fajar & Ibu Rina",
-        foto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=500",
-        instagram: "@username_profile"
-    },
-
-    // 6. RANGKAIAN JADWAL ACARA
+    // 5. JADWAL ACARA (Dengan Foto Lokasi/Gedung/Rumah)
     schedules: [
         {
             name: "Akad Nikah",
             time: "08.00 - 10.00 WIB",
             location: "KUA Purwaharja",
-            address: "Banjar"
+            address: "Banjar",
+            image: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=800" // Foto Gedung/KUA
         },
         {
             name: "Resepsi",
             time: "11.00 WIB - Selesai",
             location: "Rumah Mempelai Wanita",
-            address: "Banjar"
+            address: "Banjar",
+            image: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=800" // Foto Rumah/Gedung Resepsi
         }
     ],
 
-    // 7. GALERI FOTO
+    // 6. GALERI FOTO
     gallery: [
         "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800",
         "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800",
@@ -72,12 +66,22 @@ const CONFIG = {
         "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800"
     ],
 
-    // 8. AMPLOP DIGITAL
+    // 7. AMPLOP DIGITAL (Dengan Ikon/Logo Bank)
     bankAccounts: [
-        { bank: "BCA", number: "1234567890", owner: "Muhammad Adzka Ramdhani" },
-        { bank: "BRI", number: "0987654321", owner: "Sri Ina Aristiani" }
+        { 
+            bank: "BCA", 
+            icon: "https://upload.wikimedia.org/wikipedia/commons/5/5c/BANK_BCA_LOGO.svg",
+            number: "1234567890", 
+            owner: "Muhammad Adzka Ramdhani" 
+        },
+        { 
+            bank: "BRI", 
+            icon: "https://upload.wikimedia.org/wikipedia/commons/2/2e/BRI_2020.svg",
+            number: "0987654321", 
+            owner: "Sri Ina Aristiani" 
+        }
     ],
 
-        // 9. URL GOOGLE APPS SCRIPT (DATABASE UCAPAN)
+    // 8. DATABASE UCAPAN
     scriptUrl: "https://script.google.com/macros/s/AKfycbyXihP0ICvvo8Y5eLP571MKGXh28DzUMFcIYqOacAMHAPX_J1wWFlJeT3QRft4HLN_vtA/exec"
 };
