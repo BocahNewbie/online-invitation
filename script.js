@@ -25,14 +25,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (document.getElementById('quote-source')) document.getElementById('quote-source').innerText = `— ${CONFIG.event.quoteSource}`;
         if (document.getElementById('btn-maps')) document.getElementById('btn-maps').href = CONFIG.event.mapsUrl;
 
-        // Helper Instagram URL
+        // Helper Instagram URL (Otomatis Bersihkan @ dan Buka Link Resmi)
         const getIgUrl = (handle) => {
             if (!handle) return '#';
             const cleanHandle = handle.replace('@', '').trim();
             return `https://instagram.com/${cleanHandle}`;
         };
 
-        // Render Profile
+        // Render Profile Mempelai
         const coverHeading = document.getElementById('cover-heading');
         const heroHeading = document.getElementById('hero-heading');
         const profileContainer = document.getElementById('profile-container');
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Render Jadwal Acara (Dengan Foto Gedung / Rumah)
+        // Render Jadwal Acara (Dengan Foto Tempat/Rumah)
         const schedContainer = document.getElementById('schedule-container');
         if (schedContainer && CONFIG.schedules) {
             schedContainer.innerHTML = '';
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Render Galeri
+        // Render Galeri Foto
         const galleryGrid = document.getElementById('gallery-grid');
         if (galleryGrid && CONFIG.gallery) {
             galleryGrid.innerHTML = '';
@@ -101,13 +101,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Render Amplop Digital + Ikon Bank & Tombol Buka
+        // Render Amplop Digital + Ikon Bank
         const bankContainer = document.getElementById('bank-container');
         if (bankContainer && CONFIG.bankAccounts) {
             bankContainer.innerHTML = '';
             CONFIG.bankAccounts.forEach((acc, idx) => {
                 const el = document.createElement('div');
-                el.className = 'bg-slate-900/80 border border-slate-800 p-6 rounded-2xl backdrop-blur-md space-y-3 flex flex-col items-center justify-center';
+                el.className = 'bg-slate-900/90 border border-slate-800 p-6 rounded-2xl backdrop-blur-md space-y-3 flex flex-col items-center justify-center shadow-xl';
                 el.innerHTML = `
                     <div class="h-10 flex items-center justify-center mb-1">
                         ${acc.icon ? `<img src="${acc.icon}" alt="${acc.bank}" class="h-8 object-contain max-w-[120px]">` : `<span class="text-xs font-bold text-cyan-400 uppercase">${acc.bank}</span>`}
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Nama Tamu Dinamis
+    // Nama Tamu Dinamis dari URL (?to=Nama+Tamu)
     const urlParams = new URLSearchParams(window.location.search);
     const guestParam = urlParams.get('to');
     if (guestParam) {
@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Interactive Envelope Click
+    // Buka / Tutup Amplop Digital saat Diklik
     const envelopeWrapper = document.getElementById('envelope-wrapper');
     if (envelopeWrapper) {
         envelopeWrapper.addEventListener('click', () => {
@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Countdown Timer
+    // Hitung Mundur (Countdown)
     if (typeof CONFIG !== 'undefined' && CONFIG.event?.targetCountdown) {
         const targetDate = new Date(CONFIG.event.targetCountdown).getTime();
         setInterval(() => {
