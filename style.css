@@ -23,6 +23,109 @@ h1, h2, h3, .font-serif {
     font-family: 'Cinzel', serif;
 }
 
+/* Smooth Scroll Global */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #020617;
+}
+::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #06b6d4;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+h1, h2, h3, .font-serif {
+    font-family: 'Cinzel', serif;
+}
+
+/* ANIMASI 1: KUPU-KUPU & BUNGA MELAYANG (FLOATING) */
+@keyframes floatAnimation {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(3deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.float-item {
+    animation: floatAnimation 5s ease-in-out infinite;
+}
+
+@keyframes butterflyFly {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(25px, -20px) rotate(8deg); }
+    66% { transform: translate(-20px, -35px) rotate(-6deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+.butterfly {
+    animation: butterflyFly 7s ease-in-out infinite;
+}
+
+/* ANIMASI 2: NEON CREDIT */
+.neon-credit {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: neonGlowCyan 2s infinite alternate ease-in-out;
+}
+
+@keyframes neonGlowCyan {
+    0% { filter: drop-shadow(0 0 2px rgba(6, 182, 212, 0.4)); opacity: 0.85; }
+    50% { filter: drop-shadow(0 0 10px rgba(6, 182, 212, 0.9)); opacity: 1; }
+    100% { filter: drop-shadow(0 0 2px rgba(6, 182, 212, 0.4)); opacity: 0.7; }
+}
+
+.spin-slow {
+    animation: spin 6s linear infinite;
+}
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ANIMASI 3: INTERAKTIF BUKA AMPLOP DIGITAL */
+.envelope-wrapper {
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.envelope-card {
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.envelope-wrapper.open .envelope-card {
+    transform: rotateX(180deg);
+}
+
+.envelope-content {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.8s ease-in-out;
+}
+
+.envelope-wrapper.open + .envelope-content {
+    max-height: 1000px;
+    opacity: 1;
+    margin-top: 1.5rem;
+}
+
 /* EFEK NEON BLUE-PURPLE WITH CYAN GLOW & PULSE */
 .neon-credit {
     font-size: 0.85rem;
