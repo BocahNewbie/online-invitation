@@ -1,4 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // 1. MENANGKAP NAMA TAMU DARI PARAMETER URL (Contoh: ?to=Warga+Indonesia)
+    const urlParams = new URLSearchParams(window.location.search);
+    const guestParam = urlParams.get('to');
+    const guestNameEl = document.getElementById('guest-name');
+    
+    if (guestNameEl) {
+        if (guestParam) {
+            // Mengubah tanda plus (+) atau spasi terenkode menjadi spasi biasa
+            const decodedName = decodeURIComponent(guestParam.replace(/\+/g, ' '));
+            guestNameEl.innerText = decodedName;
+        } else {
+            guestNameEl.innerText = "Tamu Undangan";
+        }
+    }
+
     if (typeof CONFIG !== 'undefined') {
         if (CONFIG.backgrounds && CONFIG.backgrounds.globalPattern) {
             document.body.style.backgroundImage = `url('${CONFIG.backgrounds.globalPattern}')`;
