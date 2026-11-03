@@ -25,7 +25,7 @@ const CONFIG = {
     // DATA MEMPELAI & FOTO PROFIL
     wedding: {
         pria: {
-            nama: "M. Adzka Ramdhani, S.E., M.M.",
+            nama: "M. Adzka Ramdhani",
             panggilan: "Adzka",
             orangTua: "Putra Pertama dari Bapak Kamaludin & Ibu Dra. Ida Srinurwenda",
             foto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=500",
