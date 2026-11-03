@@ -3,7 +3,7 @@ html {
     scroll-behavior: smooth;
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar Neon Blue */
 ::-webkit-scrollbar {
     width: 6px;
 }
@@ -18,50 +18,56 @@ html {
     background: #06b6d4;
 }
 
+/* BACKGROUND UTAMA FIX SATU HALAMAN PENUH */
 body {
     font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #020617;
+    color: #f1f5f9;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
+
 h1, h2, h3, .font-serif {
-    font-family: 'Cinzel', serif;
+    font-family: 'Cinzel Decorative', 'Cinzel', serif;
 }
 
-/* ANIMASI ELEMEN MELAYANG & KUPU-KUPU */
-@keyframes floatAnimation {
-    0% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-15px) rotate(3deg); }
-    100% { transform: translateY(0px) rotate(0deg); }
+.font-script {
+    font-family: 'Great Vibes', cursive;
 }
 
-.float-item {
-    animation: floatAnimation 5s ease-in-out infinite;
+/* KARTU KONTROL GLASSMORPHISM NEON BLUE */
+.neon-arch-card {
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid rgba(6, 182, 212, 0.4);
+    border-radius: 1.5rem;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: #f1f5f9;
+    position: relative;
+    box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.7),
+        0 0 30px rgba(6, 182, 212, 0.15),
+        inset 0 0 15px rgba(6, 182, 212, 0.05);
+    transition: all 0.3s ease;
 }
 
-@keyframes butterflyFly {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    33% { transform: translate(25px, -20px) rotate(8deg); }
-    66% { transform: translate(-20px, -35px) rotate(-6deg); }
-    100% { transform: translate(0, 0) rotate(0deg); }
+.neon-arch-card:hover {
+    border-color: rgba(6, 182, 212, 0.7);
+    box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.8),
+        0 0 35px rgba(6, 182, 212, 0.3),
+        inset 0 0 20px rgba(6, 182, 212, 0.1);
 }
 
-.butterfly {
-    animation: butterflyFly 7s ease-in-out infinite;
-}
-
-.spin-slow {
-    animation: spin 6s linear infinite;
-}
-@keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-/* EFEK NEON BLUE-PURPLE WITH CYAN GLOW & PULSE */
+/* EFEK TULISAN NEON CYAN-PURPLE */
 .neon-credit {
     font-size: 0.85rem;
     font-weight: 700;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
+    background: linear-gradient(135deg, #38bdf8 0%, #a855f7 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: neonGlowCyan 2s infinite alternate ease-in-out;
@@ -86,7 +92,67 @@ h1, h2, h3, .font-serif {
     }
 }
 
-/* ANIMASI KARTU MELUNCUR KELUAR DARI AMPLOP */
+/* EFEK KILAU SHIMMER TOMBOL */
+.btn-shimmer {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-shimmer::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        60deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.25) 50%,
+        transparent 70%
+    );
+    transform: rotate(30deg) translateX(-100%);
+    animation: shimmer 4s infinite;
+}
+
+@keyframes shimmer {
+    100% {
+        transform: rotate(30deg) translateX(100%);
+    }
+}
+
+/* ANIMASI MELAYANG & KUPU-KUPU */
+@keyframes floatAnimation {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(2deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.float-item {
+    animation: floatAnimation 4s ease-in-out infinite;
+}
+
+@keyframes butterflyFly {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(20px, -15px) rotate(6deg); }
+    66% { transform: translate(-15px, -25px) rotate(-4deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+.butterfly {
+    animation: butterflyFly 7s ease-in-out infinite;
+}
+
+.spin-slow {
+    animation: spin 6s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* AMPLOP DIGITAL */
 .envelope-container {
     position: relative;
     width: 100%;
@@ -98,19 +164,19 @@ h1, h2, h3, .font-serif {
 .envelope-box {
     position: relative;
     width: 100%;
-    background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
-    border: 1px solid rgba(6, 182, 212, 0.4);
+    background: linear-gradient(135deg, #090d16 0%, #020617 100%);
+    border: 1.5px solid rgba(6, 182, 212, 0.5);
     border-radius: 1.25rem;
     padding: 2.5rem 1.5rem 1.5rem;
     text-align: center;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.6);
     z-index: 20;
     transition: all 0.3s ease;
 }
 
 .envelope-box:hover {
-    border-color: rgba(6, 182, 212, 0.8);
-    box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
+    border-color: rgba(6, 182, 212, 0.9);
+    box-shadow: 0 0 25px rgba(6, 182, 212, 0.35);
 }
 
 .envelope-card-content {
