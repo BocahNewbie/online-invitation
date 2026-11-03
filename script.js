@@ -1,137 +1,189 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. INTEGRASI CONFIG & TAMPILAN UTAMA
     if (typeof CONFIG !== 'undefined') {
-        // Terapan Background Parallax Foto Klien
-        const bgMap = {
-            'sec-cover': CONFIG.backgrounds?.cover,
-            'sec-hero': CONFIG.backgrounds?.hero,
-            'sec-quote': CONFIG.backgrounds?.quote,
-            'sec-mempelai': CONFIG.backgrounds?.mempelai,
-            'sec-acara': CONFIG.backgrounds?.acara,
-            'sec-galeri': CONFIG.backgrounds?.galeri,
-            'sec-amplop': CONFIG.backgrounds?.amplop,
-            'sec-rsvp': CONFIG.backgrounds?.rsvp
-        };
-        for (const [id, url] of Object.entries(bgMap)) {
-            const el = document.getElementById(id);
-            if (el && url) el.style.backgroundImage = `url('${url}')`;
+        if (CONFIG.backgrounds && CONFIG.backgrounds.globalPattern) {
+            document.body.style.backgroundImage = `url('${CONFIG.backgrounds.globalPattern}')`;
         }
 
-        // Teks Tampilan Utama
         if (document.getElementById('cover-title-tag')) document.getElementById('cover-title-tag').innerText = CONFIG.event.title;
         if (document.getElementById('hero-tag')) document.getElementById('hero-tag').innerText = CONFIG.event.title;
         if (document.getElementById('hero-date')) document.getElementById('hero-date').innerText = CONFIG.event.dateText;
         if (document.getElementById('quote-text')) document.getElementById('quote-text').innerText = `"${CONFIG.event.quote}"`;
         if (document.getElementById('quote-source')) document.getElementById('quote-source').innerText = `— ${CONFIG.event.quoteSource}`;
-        if (document.getElementById('btn-maps')) document.getElementById('btn-maps').href = CONFIG.event.mapsUrl;
 
-        // Helper Instagram URL (Otomatis Bersihkan @ dan Buka Link Resmi)
         const getIgUrl = (handle) => {
             if (!handle) return '#';
             const cleanHandle = handle.replace('@', '').trim();
             return `https://instagram.com/${cleanHandle}`;
         };
 
-        // Render Profile Mempelai
         const coverHeading = document.getElementById('cover-heading');
         const heroHeading = document.getElementById('hero-heading');
+        const thanksCouples = document.getElementById('thanks-couples');
         const profileContainer = document.getElementById('profile-container');
 
         if (CONFIG.type === 'wedding' && CONFIG.wedding) {
             const p = CONFIG.wedding.pria;
             const w = CONFIG.wedding.wanita;
-            if (coverHeading) coverHeading.innerHTML = `${p.nama.split(',')[0]} <br>& <br>${w.nama.split(',')[0]}`;
-            if (heroHeading) heroHeading.innerHTML = `${p.nama.split(',')[0]} <br>& <br>${w.nama.split(',')[0]}`;
+            
+            const pCall = p.panggilan || p.nama.split(',')[0];
+            const wCall = w.panggilan || w.nama.split(',')[0];
+
+            if (coverHeading) coverHeading.innerHTML = `<span class="font-script text-4xl sm:text-5xl font-normal text-cyan-300 block my-1">${pCall}</span> <span class="text-purple-400 font-serif text-xl">&amp;</span> <span class="font-script text-4xl sm:text-5xl font-normal text-cyan-300 block my-1">${wCall}</span>`;
+            if (heroHeading) heroHeading.innerHTML = `<span class="font-script text-4xl sm:text-6xl font-normal text-cyan-300 block my-1">${pCall}</span> <span class="text-purple-400 font-serif text-2xl">&amp;</span> <span class="font-script text-4xl sm:text-6xl font-normal text-cyan-300 block my-1">${wCall}</span>`;
+            if (thanksCouples) thanksCouples.innerText = `${pCall} & ${wCall}`;
 
             if (profileContainer) {
                 profileContainer.innerHTML = `
                     <div class="text-center space-y-3 mb-8">
-                        <h2 class="font-serif text-3xl sm:text-5xl font-bold text-cyan-300">Pasangan Mempelai</h2>
+                        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-cyan-300">Pasangan Mempelai</h2>
                     </div>
-                    <div class="grid md:grid-cols-2 gap-12 items-center">
-                        <div class="bg-slate-900/60 border border-slate-800 p-8 rounded-3xl backdrop-blur-md text-center space-y-4 border-cyan-500/30 float-item">
-                            <img src="${p.foto}" class="w-36 h-36 rounded-full mx-auto object-cover border-2 border-cyan-400 shadow-lg">
-                            <h3 class="font-serif text-2xl font-bold text-slate-100">${p.nama}</h3>
-                            <p class="text-xs text-slate-400">${p.orangTua}</p>
-                            <a href="${getIgUrl(p.instagram)}" target="_blank" class="inline-flex items-center space-x-2 text-xs text-cyan-400 hover:text-cyan-300 transition-colors">
-                                <i class="fa-brands fa-instagram"></i><span>${p.instagram}</span>
-                            </a>
+                    <div class="grid md:grid-cols-2 gap-8 items-stretch">
+                        <div class="bg-slate-900/80 border border-cyan-500/30 p-6 rounded-3xl text-center shadow-md hover:shadow-xl transition-all h-full flex flex-col justify-between space-y-4">
+                            <div class="space-y-4">
+                                <div class="relative w-36 h-36 mx-auto">
+                                    <img src="${p.foto}" class="w-full h-full rounded-full object-cover border-4 border-cyan-400 shadow-lg">
+                                    <div class="absolute inset-0 rounded-full border-2 border-purple-500/40 transform scale-105"></div>
+                                </div>
+                                <div class="min-h-[72px] flex items-center justify-center">
+                                    <h3 class="font-serif text-2xl font-bold text-slate-100 leading-snug">${p.nama}</h3>
+                                </div>
+                                <p class="text-xs text-slate-400 leading-relaxed">${p.orangTua}</p>
+                            </div>
+                            <div class="pt-2">
+                                <a href="${getIgUrl(p.instagram)}" target="_blank" class="inline-flex items-center space-x-2 text-xs text-cyan-400 hover:text-cyan-300 transition-colors bg-cyan-950/60 px-3.5 py-1.5 rounded-full border border-cyan-500/30">
+                                    <i class="fa-brands fa-instagram text-cyan-400"></i><span>${p.instagram}</span>
+                                </a>
+                            </div>
                         </div>
-                        <div class="bg-slate-900/60 border border-slate-800 p-8 rounded-3xl backdrop-blur-md text-center space-y-4 border-purple-500/30 float-item" style="animation-delay: -2.5s;">
-                            <img src="${w.foto}" class="w-36 h-36 rounded-full mx-auto object-cover border-2 border-purple-400 shadow-lg">
-                            <h3 class="font-serif text-2xl font-bold text-slate-100">${w.nama}</h3>
-                            <p class="text-xs text-slate-400">${w.orangTua}</p>
-                            <a href="${getIgUrl(w.instagram)}" target="_blank" class="inline-flex items-center space-x-2 text-xs text-purple-400 hover:text-purple-300 transition-colors">
-                                <i class="fa-brands fa-instagram"></i><span>${w.instagram}</span>
-                            </a>
+
+                        <div class="bg-slate-900/80 border border-purple-500/30 p-6 rounded-3xl text-center shadow-md hover:shadow-xl transition-all h-full flex flex-col justify-between space-y-4">
+                            <div class="space-y-4">
+                                <div class="relative w-36 h-36 mx-auto">
+                                    <img src="${w.foto}" class="w-full h-full rounded-full object-cover border-4 border-purple-400 shadow-lg">
+                                    <div class="absolute inset-0 rounded-full border-2 border-cyan-500/40 transform scale-105"></div>
+                                </div>
+                                <div class="min-h-[72px] flex items-center justify-center">
+                                    <h3 class="font-serif text-2xl font-bold text-slate-100 leading-snug">${w.nama}</h3>
+                                </div>
+                                <p class="text-xs text-slate-400 leading-relaxed">${w.orangTua}</p>
+                            </div>
+                            <div class="pt-2">
+                                <a href="${getIgUrl(w.instagram)}" target="_blank" class="inline-flex items-center space-x-2 text-xs text-purple-400 hover:text-purple-300 transition-colors bg-purple-950/60 px-3.5 py-1.5 rounded-full border border-purple-500/30">
+                                    <i class="fa-brands fa-instagram text-purple-400"></i><span>${w.instagram}</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 `;
             }
         }
 
-        // Render Jadwal Acara (Dengan Foto Tempat/Rumah)
+        const storyContainer = document.getElementById('story-container');
+        if (storyContainer && CONFIG.loveStory) {
+            storyContainer.innerHTML = '<div id="journey-line" class="absolute top-0 left-[-2px] w-[2px] bg-gradient-to-b from-cyan-400 via-sky-500 to-purple-600 transition-all duration-300 ease-out h-0"></div>';
+            CONFIG.loveStory.forEach((item) => {
+                const card = document.createElement('div');
+                card.className = 'relative pl-2 space-y-2 group';
+                card.innerHTML = `
+                    <div class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-slate-900 border-2 border-cyan-400 flex items-center justify-center shadow-sm group-hover:scale-125 transition-transform">
+                        <div class="w-1.5 h-1.5 rounded-full bg-purple-400"></div>
+                    </div>
+                    <div class="bg-slate-900/90 border border-slate-800 p-5 rounded-2xl shadow-md hover:shadow-lg transition-all space-y-2">
+                        <span class="px-3 py-1 bg-cyan-950 text-cyan-300 border border-cyan-500/30 text-xs font-bold rounded-full shadow-sm inline-block">${item.year}</span>
+                        <h3 class="font-serif text-lg font-bold text-slate-100">${item.title}</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed pt-1">${item.description}</p>
+                    </div>
+                `;
+                storyContainer.appendChild(card);
+            });
+        }
+
         const schedContainer = document.getElementById('schedule-container');
         if (schedContainer && CONFIG.schedules) {
             schedContainer.innerHTML = '';
             CONFIG.schedules.forEach(item => {
                 const card = document.createElement('div');
-                card.className = 'bg-slate-900/80 border border-slate-800 rounded-2xl overflow-hidden backdrop-blur-md shadow-xl text-center space-y-4 group hover:border-cyan-500/50 transition-all duration-300';
+                card.className = 'bg-slate-900/90 border border-slate-800 rounded-2xl overflow-hidden shadow-lg text-center space-y-4 group transition-all duration-300 hover:border-cyan-500/50 flex flex-col justify-between';
                 card.innerHTML = `
-                    ${item.image ? `<div class="h-44 w-full overflow-hidden relative"><img src="${item.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"><div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div></div>` : ''}
-                    <div class="p-6 space-y-2">
-                        <h3 class="font-serif text-2xl font-bold text-cyan-300">${item.name}</h3>
-                        <p class="text-slate-300 text-sm font-semibold">${item.time}</p>
-                        <p class="text-xs text-slate-400">${item.location}<br>${item.address}</p>
+                    <div>
+                        ${item.image ? `<div class="h-44 w-full overflow-hidden relative"><img src="${item.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"><div class="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent"></div></div>` : ''}
+                        <div class="p-5 space-y-2">
+                            <h3 class="font-serif text-2xl font-bold text-cyan-300">${item.name}</h3>
+                            <p class="text-cyan-400 text-sm font-semibold border-y border-slate-800 py-1 inline-block px-3">${item.time}</p>
+                            <p class="text-xs text-slate-400 leading-relaxed">${item.location}<br>${item.address}</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <a href="${item.mapsUrl || '#'}" target="_blank" class="inline-flex items-center justify-center space-x-2 w-full py-2.5 bg-gradient-to-r from-cyan-500 to-purple-600 text-slate-950 font-bold text-xs rounded-xl hover:from-cyan-400 hover:to-purple-500 transition-all shadow-md">
+                            <i class="fa-solid fa-map-location-dot text-xs"></i>
+                            <span>Lokasi ${item.name}</span>
+                        </a>
                     </div>
                 `;
                 schedContainer.appendChild(card);
             });
         }
 
-        // Render Galeri Foto
         const galleryGrid = document.getElementById('gallery-grid');
         if (galleryGrid && CONFIG.gallery) {
             galleryGrid.innerHTML = '';
             CONFIG.gallery.forEach(url => {
                 const wrap = document.createElement('div');
-                wrap.className = 'overflow-hidden rounded-2xl border border-slate-800 shadow-lg group';
-                wrap.innerHTML = `<img src="${url}" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">`;
+                wrap.className = 'overflow-hidden rounded-2xl border border-slate-800 shadow-md group cursor-pointer relative';
+                wrap.innerHTML = `
+                    <img src="${url}" class="w-full h-44 object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-cyan-300 text-xl">
+                        <i class="fa-solid fa-magnifying-glass-plus"></i>
+                    </div>
+                `;
+                wrap.addEventListener('click', () => openGalleryModal(url));
                 galleryGrid.appendChild(wrap);
             });
         }
 
-        // Render Amplop Digital + Ikon Bank
         const bankContainer = document.getElementById('bank-container');
         if (bankContainer && CONFIG.bankAccounts) {
             bankContainer.innerHTML = '';
             CONFIG.bankAccounts.forEach((acc, idx) => {
                 const el = document.createElement('div');
-                el.className = 'bg-slate-900/90 border border-slate-800 p-6 rounded-2xl backdrop-blur-md space-y-3 flex flex-col items-center justify-center shadow-xl';
+                el.className = 'bg-slate-900/95 border border-slate-800 p-5 rounded-2xl space-y-2 flex flex-col items-center justify-center shadow-md';
                 el.innerHTML = `
-                    <div class="h-10 flex items-center justify-center mb-1">
-                        ${acc.icon ? `<img src="${acc.icon}" alt="${acc.bank}" class="h-8 object-contain max-w-[120px]">` : `<span class="text-xs font-bold text-cyan-400 uppercase">${acc.bank}</span>`}
+                    <div class="h-8 flex items-center justify-center mb-1">
+                        ${acc.icon ? `<img src="${acc.icon}" alt="${acc.bank}" class="h-7 object-contain max-w-[100px]">` : `<span class="text-xs font-bold text-cyan-400 uppercase">${acc.bank}</span>`}
                     </div>
-                    <p id="bank-num-${idx}" class="text-2xl font-mono font-bold text-slate-100">${acc.number}</p>
+                    <p id="bank-num-${idx}" class="text-xl font-mono font-bold text-slate-100 tracking-wider">${acc.number}</p>
                     <p class="text-xs text-slate-400">a.n. ${acc.owner}</p>
-                    <button onclick="copyAccNumber('bank-num-${idx}')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs rounded-lg border border-slate-700 flex items-center space-x-2 transition-all">
-                        <i class="fa-solid fa-copy"></i> <span>Salin Nomor Rekening</span>
+                    <button onclick="copyAccNumber('bank-num-${idx}')" class="px-4 py-1.5 bg-slate-800 hover:bg-slate-700 text-cyan-300 text-xs font-semibold rounded-lg flex items-center space-x-2 transition-all border border-slate-700">
+                        <i class="fa-solid fa-copy"></i> <span>Salin Rekening</span>
                     </button>
                 `;
                 bankContainer.appendChild(el);
             });
         }
+
+        if (CONFIG.thanks) {
+            if (document.getElementById('thanks-title')) document.getElementById('thanks-title').innerText = CONFIG.thanks.title || 'Terima Kasih';
+            if (document.getElementById('thanks-message')) document.getElementById('thanks-message').innerText = CONFIG.thanks.message;
+            if (document.getElementById('thanks-subtext')) document.getElementById('thanks-subtext').innerText = CONFIG.thanks.subtext;
+            if (document.getElementById('thanks-family')) document.getElementById('thanks-family').innerText = CONFIG.thanks.family;
+        }
     }
 
-    // Nama Tamu Dinamis dari URL (?to=Nama+Tamu)
-    const urlParams = new URLSearchParams(window.location.search);
-    const guestParam = urlParams.get('to');
-    if (guestParam) {
-        if (document.getElementById('guest-name')) document.getElementById('guest-name').innerText = guestParam;
-        if (document.getElementById('input-name')) document.getElementById('input-name').value = guestParam;
-    }
+    window.addEventListener('scroll', () => {
+        const storyContainer = document.getElementById('story-container');
+        const journeyLine = document.getElementById('journey-line');
+        if (storyContainer && journeyLine) {
+            const rect = storyContainer.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+            if (rect.top < windowHeight && rect.bottom > 0) {
+                const totalHeight = rect.height;
+                const visibleHeight = windowHeight - rect.top;
+                const progress = Math.min(Math.max(visibleHeight / totalHeight, 0), 1);
+                journeyLine.style.height = `${progress * 100}%`;
+            }
+        }
+    });
 
-    // Buka Undangan & Autoplay Musik
     const btnOpen = document.getElementById('btn-open');
     const audio = document.getElementById('wedding-audio');
     const audioControl = document.getElementById('audio-control');
@@ -141,13 +193,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnOpen) {
         btnOpen.addEventListener('click', () => {
             const cover = document.getElementById('sec-cover');
-            if (cover) cover.classList.add('opacity-0', 'pointer-events-none');
+            const mainContent = document.getElementById('main-content');
+            
+            if (cover) cover.classList.add('opacity-0', 'scale-105', 'pointer-events-none');
+            
             setTimeout(() => {
                 if (cover) cover.style.display = 'none';
-                const mainContent = document.getElementById('main-content');
-                if (mainContent) mainContent.classList.remove('hidden');
+                if (mainContent) {
+                    mainContent.classList.remove('hidden');
+                    setTimeout(() => mainContent.classList.remove('opacity-0'), 50);
+                }
                 if (audioControl) audioControl.classList.remove('hidden');
-            }, 1000);
+            }, 800);
 
             if (audio) {
                 audio.play().then(() => {
@@ -172,7 +229,34 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Buka / Tutup Amplop Digital saat Diklik
+    const modal = document.getElementById('gallery-modal');
+    const modalImg = document.getElementById('modal-img');
+    const closeModalBtn = document.getElementById('close-modal');
+
+    function openGalleryModal(url) {
+        if (modal && modalImg) {
+            modalImg.src = url;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+    }
+
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', () => {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        });
+    }
+
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        });
+    }
+
     const envelopeWrapper = document.getElementById('envelope-wrapper');
     if (envelopeWrapper) {
         envelopeWrapper.addEventListener('click', () => {
@@ -180,7 +264,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Hitung Mundur (Countdown)
     if (typeof CONFIG !== 'undefined' && CONFIG.event?.targetCountdown) {
         const targetDate = new Date(CONFIG.event.targetCountdown).getTime();
         setInterval(() => {
@@ -195,13 +278,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     }
 
-    // RSVP Form & Fetch Comments
     const rsvpForm = document.getElementById('rsvp-form');
     const commentsContainer = document.getElementById('comments-container');
 
     function fetchComments() {
         if (!commentsContainer) return;
-        if (typeof CONFIG === 'undefined' || !CONFIG.scriptUrl || CONFIG.scriptUrl.includes("PASTE_URL")) {
+        if (typeof CONFIG === 'undefined' || !CONFIG.scriptUrl || CONFIG.scriptUrl.includes("PASTER_URL")) {
             commentsContainer.innerHTML = '<p class="text-xs text-slate-500 text-center">Belum ada ucapan tersimpan.</p>';
             return;
         }
@@ -213,13 +295,13 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 commentsContainer.innerHTML = '';
                 if (!data || data.length === 0) {
-                    commentsContainer.innerHTML = '<p class="text-xs text-slate-500 text-center">Belum ada ucapan. Jadilah yang pertama memberikan ucapan!</p>';
+                    commentsContainer.innerHTML = '<p class="text-xs text-slate-500 text-center">Belum ada ucapan. Jadilah yang pertama!</p>';
                     return;
                 }
 
                 data.forEach(item => {
                     const el = document.createElement('div');
-                    el.className = 'bg-slate-900/80 border border-slate-800 p-4 rounded-xl text-left space-y-1';
+                    el.className = 'bg-slate-900/90 border border-slate-800 p-3.5 rounded-xl text-left space-y-1 shadow-sm';
                     el.innerHTML = `
                         <div class="flex justify-between items-center">
                             <span class="font-bold text-cyan-300 text-sm">${escapeHtml(item.name)}</span>
@@ -248,19 +330,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const status = document.getElementById('input-status').value;
             const msg = document.getElementById('input-message').value;
 
-            if (typeof CONFIG === 'undefined' || !CONFIG.scriptUrl || CONFIG.scriptUrl.includes("PASTE_URL")) {
-                alert("URL Database Google Script belum dipasang di config.js!");
+            if (typeof CONFIG === 'undefined' || !CONFIG.scriptUrl || CONFIG.scriptUrl.includes("PASTER_URL")) {
+                showToast("URL Database Google Script belum dipasang!");
                 return;
             }
 
             submitBtn.disabled = true;
             submitBtn.innerText = "Mengirim...";
 
-            const payload = {
-                name: name,
-                status: status,
-                message: msg
-            };
+            const payload = { name: name, status: status, message: msg };
 
             fetch(CONFIG.scriptUrl, {
                 method: 'POST',
@@ -268,7 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(res => res.json())
             .then(res => {
-                alert('Terima kasih! Ucapan Anda telah tersimpan.');
+                showToast('Terima kasih! Ucapan Anda telah tersimpan.');
                 document.getElementById('input-message').value = '';
                 submitBtn.disabled = false;
                 submitBtn.innerText = "Kirim Ucapan";
@@ -276,7 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(err => {
                 console.error("Gagal mengirim ucapan:", err);
-                alert('Terjadi kesalahan saat menyimpan ucapan. Silakan coba lagi.');
+                showToast('Terjadi kesalahan saat menyimpan ucapan.');
                 submitBtn.disabled = false;
                 submitBtn.innerText = "Kirim Ucapan";
             });
@@ -284,16 +362,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Helper Functions
 function escapeHtml(text) {
     return text ? text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") : '';
+}
+
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    const toastMsg = document.getElementById('toast-msg');
+    if (toast && toastMsg) {
+        toastMsg.innerText = message;
+        toast.classList.remove('opacity-0', 'pointer-events-none');
+        toast.classList.add('opacity-100');
+        setTimeout(() => {
+            toast.classList.remove('opacity-100');
+            toast.classList.add('opacity-0', 'pointer-events-none');
+        }, 3000);
+    }
 }
 
 function copyAccNumber(id) {
     const el = document.getElementById(id);
     if (el) {
         navigator.clipboard.writeText(el.innerText).then(() => {
-            alert('Nomor rekening berhasil disalin!');
+            showToast('Nomor rekening berhasil disalin!');
         });
     }
 }
